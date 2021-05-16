@@ -9,6 +9,11 @@ Smart contracts for the Marshmallow V1
   - [NFT token 1](https://testnets.opensea.io/assets/0x282c5d6eab38e98862426bcfb51d366b7c5de3f5/1)
   - [NFT token 2](https://testnets.opensea.io/assets/0x282c5d6eab38e98862426bcfb51d366b7c5de3f5/2)
 
+- Mumbai testnet
+  - Marshmallow address: [0xF759d6BAB5761e7069Ad85EA1F9D762Ff9466102](https://explorer-mumbai.maticvigil.com/address/0xF759d6BAB5761e7069Ad85EA1F9D762Ff9466102)
+  - [NFT token 1](https://testnets.opensea.io/assets/mumbai/0xF759d6BAB5761e7069Ad85EA1F9D762Ff9466102/1)
+  - [NFT token 2](https://testnets.opensea.io/assets/mumbai/0xF759d6BAB5761e7069Ad85EA1F9D762Ff9466102/2)
+
 ## Functions
 
 - addMinter
