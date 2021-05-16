@@ -4,15 +4,10 @@ Smart contracts for the Marshmallow V1
 
 ## Deployed contracts
 
-- Matic testnet
-  - Deployer address: 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC
-  - ProxyRegistry address: [0x0124189Fc71496f8660dB5189F296055ED757632](https://explorer-mumbai.maticvigil.com/address/0x0124189Fc71496f8660dB5189F296055ED757632)
-  - Marshmallow address: [0x4F41b941940005aE25D5ecB0F01BaDbc7065E2dD](https://explorer-mumbai.maticvigil.com/address/0x4F41b941940005aE25D5ecB0F01BaDbc7065E2dD)
-
 - Rinkeby testnet
-  - Deployer address: 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC
-  - ProxyRegistry address: [0xE252eBc212d6ebe1ed9b38acd806532707e2e7Ca](https://rinkeby.etherscan.io/address/0xE252eBc212d6ebe1ed9b38acd806532707e2e7Ca)
-  - Marshmallow address: [0x6654dCEf5F156EbFC7F7d115a9952083Fd650697](https://rinkeby.etherscan.io/address/0x6654dCEf5F156EbFC7F7d115a9952083Fd650697)
+  - Marshmallow address: [0x282C5d6Eab38e98862426bCFB51D366b7C5DE3f5](https://rinkeby.etherscan.io/address/0x282C5d6Eab38e98862426bCFB51D366b7C5DE3f5)
+  - [NFT token 1](https://testnets.opensea.io/assets/0x282c5d6eab38e98862426bcfb51d366b7c5de3f5/1)
+  - [NFT token 2](https://testnets.opensea.io/assets/0x282c5d6eab38e98862426bcfb51d366b7c5de3f5/2)
 
 ## Functions
 
