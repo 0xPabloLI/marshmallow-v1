@@ -1,0 +1,16 @@
+{
+  "description": "Friendly OpenSea Creature that enjoys long swims in the ocean.",
+  "external_url": "incognito",
+  "image": "https://ipfs.io/ipfs/bafybeialxx7sxoj6leetr42gre2f4o6nwxgpiuotlyfbg6xm3jcolls6qy",
+  "name": "incognito",
+  "attributes": [
+    {
+      "trait_type": "Set",
+      "value": "MM Collection"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Rare"
+    }
+  ]
+}
