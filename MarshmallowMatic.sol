@@ -1218,15 +1218,6 @@ library Strings {
 	}
 }
 
-contract OwnableDelegateProxy {}
-
-contract ProxyRegistry {
-  mapping(address => OwnableDelegateProxy) public proxies;
-  // function setProxy(OwnableDelegateProxy _dex) public {
-  //   proxies[msg.sender] = _dex;
-  // }
-}
-
 /**
  * @title ERC1155Tradable
  * ERC1155Tradable - ERC1155 contract that whitelists an operator address, 
@@ -1236,7 +1227,6 @@ contract ProxyRegistry {
 contract ERC1155Tradable is ERC1155, ERC1155MintBurn, ERC1155Metadata, Ownable, MinterRole, WhitelistAdminRole {
 	using Strings for string;
 
-	address proxyRegistryAddress;
 	uint256 private _currentTokenID = 0;
 	mapping(uint256 => address) public creators;
 	mapping(uint256 => uint256) public tokenSupply;
@@ -1249,11 +1239,11 @@ contract ERC1155Tradable is ERC1155, ERC1155MintBurn, ERC1155Metadata, Ownable, 
 	constructor(
 		string memory _name,
 		string memory _symbol,
-		address _proxyRegistryAddress
+		string memory uri_
 	) public {
 		name = _name;
 		symbol = _symbol;
-		proxyRegistryAddress = _proxyRegistryAddress;
+    _uri = uri_;
 	}
 
 	function removeWhitelistAdmin(address account) public onlyOwner {
@@ -1264,9 +1254,14 @@ contract ERC1155Tradable is ERC1155, ERC1155MintBurn, ERC1155Metadata, Ownable, 
 		_removeMinter(account);
 	}
 
+  function setTokenURI(uint256 tokenId, string calldata cid) external {
+    require(_exists(tokenId));
+    _tokenURIs[tokenId] = cid;
+  }
+
 	function uri(uint256 _id) override public view returns (string memory) {
 		require(_exists(_id), "ERC721Tradable#uri: NONEXISTENT_TOKEN");
-		return Strings.strConcat(baseMetadataURI, Strings.uint2str(_id));
+		return Strings.strConcat(baseMetadataURI, _tokenURIs[_id]);
 	}
 
 	/**
@@ -1377,9 +1372,8 @@ contract ERC1155Tradable is ERC1155, ERC1155MintBurn, ERC1155Metadata, Ownable, 
  * Marshmallow - Collect limited edition NFTs from Marshmallow
  */
 contract MarshmallowMatic is ERC1155Tradable, ContextMixin, NativeMetaTransaction {
-	constructor(address _proxyRegistryAddress) public ERC1155Tradable("Marshmallow", "MARSHMALLOW", _proxyRegistryAddress) {
-		_setBaseMetadataURI("https://creatures-api.opensea.io/api/creature/");
-    _initializeEIP712("https://creatures-api.opensea.io/api/creature/");
+	constructor(string memory uri_) public ERC1155Tradable("Apex Studio", "Apex", uri_) {
+		_setBaseMetadataURI(uri_);
 	}
 
   /**
@@ -1395,6 +1389,6 @@ contract MarshmallowMatic is ERC1155Tradable, ContextMixin, NativeMetaTransactio
   }
 
 	function contractURI() public view returns (string memory) {
-		return "https://creatures-api.opensea.io/contract/opensea-erc1155";
+		return "";
 	}
 }
