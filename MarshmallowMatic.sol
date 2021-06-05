@@ -1231,6 +1231,7 @@ contract ERC1155Tradable is ERC1155, ERC1155MintBurn, ERC1155Metadata, Ownable, 
 	mapping(uint256 => address) public creators;
 	mapping(uint256 => uint256) public tokenSupply;
 	mapping(uint256 => uint256) public tokenMaxSupply;
+  mapping(uint256 => string) private _tokenURIs;
 	// Contract name
 	string public name;
 	// Contract symbol
@@ -1243,7 +1244,7 @@ contract ERC1155Tradable is ERC1155, ERC1155MintBurn, ERC1155Metadata, Ownable, 
 	) public {
 		name = _name;
 		symbol = _symbol;
-    _uri = uri_;
+		setBaseMetadataURI(uri_);
 	}
 
 	function removeWhitelistAdmin(address account) public onlyOwner {
@@ -1254,8 +1255,9 @@ contract ERC1155Tradable is ERC1155, ERC1155MintBurn, ERC1155Metadata, Ownable, 
 		_removeMinter(account);
 	}
 
-  function setTokenURI(uint256 tokenId, string calldata cid) external {
+  function setTokenURI(uint256 tokenId, string calldata cid) external onlyWhitelistAdmin {
     require(_exists(tokenId));
+		require(bytes(_tokenURIs[tokenId]).length == 0, "Token URI already set");
     _tokenURIs[tokenId] = cid;
   }
 
@@ -1372,8 +1374,8 @@ contract ERC1155Tradable is ERC1155, ERC1155MintBurn, ERC1155Metadata, Ownable, 
  * Marshmallow - Collect limited edition NFTs from Marshmallow
  */
 contract MarshmallowMatic is ERC1155Tradable, ContextMixin, NativeMetaTransaction {
-	constructor(string memory uri_) public ERC1155Tradable("Apex Studio", "Apex", uri_) {
-		_setBaseMetadataURI(uri_);
+	constructor(string memory uri_) public ERC1155Tradable("XYZ Collections", "XYZ", uri_) {
+    _initializeEIP712(uri_);
 	}
 
   /**

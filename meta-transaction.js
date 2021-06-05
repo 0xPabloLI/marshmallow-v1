@@ -910,10 +910,15 @@
     message.functionSignature = functionSignature;
     const dataToSign = JSON.stringify({
       types: {
-        EIP712Domain: domainType,
-        MetaTransaction: metaTransactionType
+        EIP712Domain: [{"name":"name","type":"string"},{"name":"version","type":"string"},{"name":"verifyingContract","type":"address"},{"name":"salt","type":"bytes32"}],
+        MetaTransaction: [{"name":"nonce","type":"uint256"},{"name":"from","type":"address"},{"name":"functionSignature","type":"bytes"}]
       },
-      domain: domainData,
+      domain: {
+        chainId: 31337,
+        name: 'Ether Mail',
+        verifyingContract: '0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC',
+        version: '1',
+      },
       primaryType: "MetaTransaction",
       message: message
     });
