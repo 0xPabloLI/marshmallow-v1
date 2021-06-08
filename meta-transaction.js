@@ -1,77 +1,144 @@
-console.log(deployer.address);
-const Marshmallow = new web3.eth.Contract(config.contractABI, config.contractAddress);
+const sigUtil = require("eth-sig-util");
+const ethUtils = require("ethereumjs-util");
 
-let functionSignature = Marshmallow.methods.create(20, 10, 'dragon', 0x0).encodeABI();
-console.log(functionSignature);
+const { ethers } = require("hardhat");
+const web3Abi = require("web3-eth-abi");
 
-let userAddress = deployer.address;
-let nonce = await Marshmallow.methods.getNonce(userAddress).call();
-console.log(nonce);
-let message = {};
-message.nonce = parseInt(nonce);
-message.from = userAddress;
-message.functionSignature = functionSignature;
-const dataToSign = JSON.stringify({
-  types: {
-    EIP712Domain: [
-      {name: "name", type: "string"},
-      {name: "version", type: "string"},
-      {name: "verifyingContract", type: "address"},
-      {name: "salt", type: "bytes32"}
-    ],
-    MetaTransaction: [
-      {name: "nonce", type: "uint256"},
-      {name: "from", type: "address"},
-      {name: "functionSignature", type: "bytes"}
-    ]
-  },
-  domain: {
-    name: "https://ipfs.io/ipfs/",
-    version: "1",
-    verifyingContract: "0xe9cd5d711AafBcc2800b815f5f947cDd713976D8",
-    salt: "137"
-  },
-  primaryType: "MetaTransaction",
-  message: message
-});
-console.log(dataToSign);
-web3.eth.currentProvider.send(
+const { MockProvider } = require("ethereum-waffle");
+const { Wallet } = require("ethers");
+
+const domainType = [
   {
-    jsonrpc: "2.0",
-    id: 999999999999,
-    method: "eth_signTypedData_v4",
-    params: [userAddress, dataToSign]
+    name: "name",
+    type: "string",
   },
-  function(error, response) {
-
-    let { r, s, v } = getSignatureParameters(response.result);
-
-    console.log(response.result);
-
-    const recovered = sigUtil.recoverTypedSignature_v4({
-      data: JSON.parse(dataToSign),
-      sig: response.result
-    });
-    let tx = Marshmallow.methods.executeMetaTransaction(userAddress, functionSignature, r, s, v).send({
-      from: userAddress
-    });
+  {
+    name: "version",
+    type: "string",
+  },
+  {
+    name: "verifyingContract",
+    type: "address",
+  },
+  {
+    name: "salt",
+    type: "bytes32",
   }
-);
+];
 
-const getSignatureParameters = signature => {
-  if (!web3.utils.isHexStrict(signature)) {
-    throw new Error(
-      'Given value "'.concat(signature, '" is not a valid hex string.')
-    );
+const metaTransactionType = [
+  {
+    name: "nonce",
+    type: "uint256",
+  },
+  {
+    name: "from",
+    type: "address",
+  },
+  {
+    name: "functionSignature",
+    type: "bytes",
   }
-  var r = signature.slice(0, 66);
-  var s = "0x".concat(signature.slice(66, 130));
-  var v = "0x".concat(signature.slice(130, 132));
-  v = web3.utils.hexToNumber(v);
+];
+
+let safeTransferFromAbi = {
+  "inputs": [
+    {
+      "internalType": "address",
+      "name": "_from",
+      "type": "address"
+    },
+    {
+      "internalType": "address",
+      "name": "_to",
+      "type": "address"
+    },
+    {
+      "internalType": "uint256",
+      "name": "_id",
+      "type": "uint256"
+    },
+    {
+      "internalType": "uint256",
+      "name": "_amount",
+      "type": "uint256"
+    },
+    {
+      "internalType": "bytes",
+      "name": "_data",
+      "type": "bytes"
+    }
+  ],
+  "name": "safeTransferFrom",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
+};
+
+const getTransactionData = async (user, nonce, abi, domainData, params) => {  // 考虑user拆为2个参数：address & privateKey
+  const functionSignature = web3Abi.encodeFunctionCall(abi, params);
+
+  let message = {};
+  message.nonce = parseInt(nonce);
+  message.from = await user.getAddress();
+  message.functionSignature = functionSignature;
+
+  const dataToSign = {
+    types: {
+      EIP712Domain: domainType,
+      MetaTransaction: metaTransactionType,
+    },
+    domain: domainData, // 
+    primaryType: "MetaTransaction",
+    message: message,
+  };
+
+  const signature = sigUtil.signTypedData(ethUtils.toBuffer(user.privateKey), {
+    data: dataToSign,
+  });
+
+  let r = signature.slice(0, 66);
+  let s = "0x".concat(signature.slice(66, 130));
+  let v = "0x".concat(signature.slice(130, 132));
+  v = parseInt(v);
   if (![27, 28].includes(v)) v += 27;
+
   return {
-    r: r,
-    s: s,
-    v: v
+    r,
+    s,
+    v,
+    functionSignature,
   };
 };
+
+await marshmallow.addWhitelistAdmin(user2.address);
+await marshmallow.create(20, 10, 'dragon', 0x0);
+
+let name = await marshmallow.name();
+let nonce = await marshmallow.getNonce(wallet.getAddress());
+let version = "1";
+let chainId = await marshmallow.getChainId();
+let domainData = {
+  name: name,
+  version: version,
+  verifyingContract: marshmallow.address,
+  salt: '0x' + chainId.toHexString().substring(2).padStart(64, '0'),
+};
+
+let { r, s, v, functionSignature } = await getTransactionData(
+  User1,
+  nonce,
+  safeTransferFromAbi,
+  domainData,
+  [user1.address, user2.address, 1, 3, 0x0]
+);
+
+let user = await wallet.getAddress();
+
+const metaTransaction = await marshmallow.executeMetaTransaction(
+  user,
+  functionSignature,
+  r,
+  s,
+  v
+);
