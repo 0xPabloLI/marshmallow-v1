@@ -145,7 +145,7 @@ contract NativeMetaTransaction is EIP712Base {
         bytes functionSignature;
     }
 
-    function executeMetaTransaction(  // 
+    function executeMetaTransaction(
         address userAddress,
         bytes memory functionSignature,
         bytes32 sigR,
@@ -167,13 +167,13 @@ contract NativeMetaTransaction is EIP712Base {
         nonces[userAddress] = nonces[userAddress].add(1);
 
         emit MetaTransactionExecuted(
-            userAddress,  // 发起meta transaction的地址
-            msg.sender, // relayer地址
+            userAddress,
+            msg.sender,
             functionSignature
         );
 
         // Append userAddress and relayer address at the end to extract it from calling context
-        (bool success, bytes memory returnData) = address(this).call( // 在当前合约中执行函数
+        (bool success, bytes memory returnData) = address(this).call(
             abi.encodePacked(functionSignature, userAddress)
         );
         require(success, "Function call not successful");
@@ -1220,7 +1220,6 @@ abstract contract ERC1155Tradable is ERC1155, ERC1155Burnable, Ownable, MinterRo
 
   string private _uri2;
 
-	// address proxyRegistryAddress;
 	uint256 private _currentTokenID = 0;
 	mapping(uint256 => address) public creators;
 	mapping(uint256 => uint256) public tokenSupply;
@@ -1239,7 +1238,6 @@ abstract contract ERC1155Tradable is ERC1155, ERC1155Burnable, Ownable, MinterRo
 		name = _name;
 		symbol = _symbol;
     _uri2 = uri_;
-		// setBaseMetadataURI('');
 	}
 
 	function removeWhitelistAdmin(address account) public onlyOwner {
@@ -1366,7 +1364,7 @@ abstract contract ERC1155Tradable is ERC1155, ERC1155Burnable, Ownable, MinterRo
  */
 contract MarshmallowMatic is ERC1155Tradable, ContextMixin, NativeMetaTransaction {
 	constructor(string memory uri_) ERC1155Tradable("XYZ Studio", "XYZ", uri_) {
-    _initializeEIP712(uri_);  // uri_合约名
+    _initializeEIP712(uri_);
 	}
 
   /**
