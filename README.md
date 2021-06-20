@@ -5,9 +5,9 @@ Smart contracts for the Marshmallow V1
 ## Deployed contracts
 
 - Matic
-  - Marshmallow address: [0x4F66C911040b8fc074bA4dd6C1462861386d7772](https://explorer-mainnet.maticvigil.com/address/0x4F66C911040b8fc074bA4dd6C1462861386d7772)
-  - [NFT token 1](https://opensea.io/assets/matic/0x4F66C911040b8fc074bA4dd6C1462861386d7772/1)
-  - [NFT token 2](https://opensea.io/assets/matic/0x4F66C911040b8fc074bA4dd6C1462861386d7772/2)
+  - Marshmallow address: [0xd3356f150aC68616dec256D11b7345ae7c521c55](https://explorer-mainnet.maticvigil.com/address/0xd3356f150aC68616dec256D11b7345ae7c521c55)
+  - [NFT token 1](https://opensea.io/assets/matic/0xd3356f150aC68616dec256D11b7345ae7c521c55/1)
+  - [NFT token 2](https://opensea.io/assets/matic/0xd3356f150aC68616dec256D11b7345ae7c521c55/2)
 
 ## Functions
 
