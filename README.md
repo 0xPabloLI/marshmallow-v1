@@ -5,9 +5,9 @@ Smart contracts for the Marshmallow V1
 ## Deployed contracts
 
 - Matic
-  - Marshmallow address: [0xd3356f150aC68616dec256D11b7345ae7c521c55](https://explorer-mainnet.maticvigil.com/address/0xd3356f150aC68616dec256D11b7345ae7c521c55)
-  - [NFT token 1](https://opensea.io/assets/matic/0xd3356f150aC68616dec256D11b7345ae7c521c55/1)
-  - [NFT token 2](https://opensea.io/assets/matic/0xd3356f150aC68616dec256D11b7345ae7c521c55/2)
+  - Marshmallow address: [0x3B2FF0bE02653a8775e2ab60C6db5b9a3D86FDB9](https://explorer-mainnet.maticvigil.com/address/0x3B2FF0bE02653a8775e2ab60C6db5b9a3D86FDB9)
+  - [NFT token 1](https://opensea.io/assets/matic/0x3B2FF0bE02653a8775e2ab60C6db5b9a3D86FDB9/1)
+  - [NFT token 2](https://opensea.io/assets/matic/0x3B2FF0bE02653a8775e2ab60C6db5b9a3D86FDB9/2)
 
 ## Functions
 
@@ -50,7 +50,7 @@ Smart contracts for the Marshmallow V1
 
 ## 主要用法
 
-create(20, 10, 'https://ipfs.io/ipfs/bafkreiewkeucchypjyuru67goraapvs2tuyntcs7nbktklicz2a223oea4', 0x0): 在合约中创建NFT token，返回值带tokenId
+create(postId, 20, 10, 'https://ipfs.io/ipfs/bafkreiewkeucchypjyuru67goraapvs2tuyntcs7nbktklicz2a223oea4', 0x0): 在合约中创建NFT token，返回值带tokenId
 
 mint(account.address, 2, 10, 0x0): 为用户账户铸造NFT，tokenId为2，数量为10
 

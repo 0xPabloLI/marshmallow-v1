@@ -1454,7 +1454,6 @@ abstract contract ERC1155Tradable is ERC1155, ERC1155Burnable, Ownable, MinterRo
 
   string private _uri2;
 
-	uint256 private _currentTokenID = 0;
 	mapping(uint256 => address) public creators;
 	mapping(uint256 => uint256) public tokenSupply;
 	mapping(uint256 => uint256) public tokenMaxSupply;
@@ -1516,14 +1515,14 @@ abstract contract ERC1155Tradable is ERC1155, ERC1155Burnable, Ownable, MinterRo
 	// }
 
 	function create(
+    uint256 _id,
 		uint256 _maxSupply,
 		uint256 _initialSupply,
 		string calldata _uri,
 		bytes calldata _data
 	) external onlyWhitelistAdmin returns (uint256 tokenId) {
+		require(!_exists(_id));
 		require(_initialSupply <= _maxSupply, "Initial supply cannot be more than max supply");
-		uint256 _id = _getNextTokenID();
-		_incrementTokenTypeId();
 		creators[_id] = msg.sender;
 
     _tokenURIs[_id] = _uri;
@@ -1576,22 +1575,6 @@ abstract contract ERC1155Tradable is ERC1155, ERC1155Burnable, Ownable, MinterRo
 	function _exists(uint256 _id) internal view returns (bool) {
 		return creators[_id] != address(0);
 	}
-
-	/**
-	 * @dev calculates the next token ID based on value of _currentTokenID
-	 * @return uint256 for the next token ID
-	 */
-	function _getNextTokenID() private view returns (uint256) {
-		return _currentTokenID.add(1);
-	}
-
-	/**
-	 * @dev increments the value of _currentTokenID
-	 */
-	function _incrementTokenTypeId() private {
-		_currentTokenID++;
-	}
-}
 
 /**
  * @title Marshmallow
