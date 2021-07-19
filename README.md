@@ -9,6 +9,16 @@ Smart contracts for the Marshmallow V1
   - [NFT token 1](https://opensea.io/assets/matic/0xBbC4306F467109c65F09981133Ca6981121bA556/1)
   - [NFT token 2](https://opensea.io/assets/matic/0xBbC4306F467109c65F09981133Ca6981121bA556/2)
 
+## Contracts use
+
+1. Production:
+    - Instagram: 0xBbC4306F467109c65F09981133Ca6981121bA556
+    - TikTok: 0xC2763a027c64C2d5F36eB90DF313429375fdfAaB
+2. Staging
+    - Instagram: 0xCd814b5B44fe8eC56ae7322FF94a7f7CdF3817DF
+    - TikTok: 0x97b3Cdf1BF5f446013E7A85c5377B7d3c910fEB4
+
+
 ## Functions
 
 - ERC712_VERSION
