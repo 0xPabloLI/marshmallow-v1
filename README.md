@@ -15,6 +15,9 @@ Smart contracts for the Marshmallow V1
     - Contract for Instagram: [0xBbC4306F467109c65F09981133Ca6981121bA556](https://polygonscan.com/address/0xBbC4306F467109c65F09981133Ca6981121bA556)
     - Contract for TikTok: [0xC2763a027c64C2d5F36eB90DF313429375fdfAaB](https://polygonscan.com/address/0xC2763a027c64C2d5F36eB90DF313429375fdfAaB)
     - Miner: [0x0DCfAa89Ff7Fc8fF241De89a79adDE87155e76cB](https://polygonscan.com/address/0x0DCfAa89Ff7Fc8fF241De89a79adDE87155e76cB)
+
+    - Contract: 0x1F2815Bcc2685897222ebAE05c0D11E6473d0a09
+
 2. Staging
     - Contract for Instagram: [0xCd814b5B44fe8eC56ae7322FF94a7f7CdF3817DF](https://polygonscan.com/address/0xCd814b5B44fe8eC56ae7322FF94a7f7CdF3817DF)
     - Contract for TikTok: [0x97b3Cdf1BF5f446013E7A85c5377B7d3c910fEB4](https://polygonscan.com/address/0x97b3Cdf1BF5f446013E7A85c5377B7d3c910fEB4)
