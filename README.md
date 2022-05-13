@@ -63,12 +63,12 @@ Smart contracts for the Marshmallow V1
 - transferOwnership
 - uri
 
-## 主要用法
+## Main functions
 
-create(postId, 20, 10, 'https://ipfs.io/ipfs/bafkreiewkeucchypjyuru67goraapvs2tuyntcs7nbktklicz2a223oea4', 0x0): 在合约中创建NFT token，返回值带tokenId
+create(postId, 20, 10, 'https://ipfs.io/ipfs/bafkreiewkeucchypjyuru67goraapvs2tuyntcs7nbktklicz2a223oea4', 0x0): create NFT token in contract, return tokenId
 
-mint(account.address, 2, 10, 0x0): 为用户账户铸造NFT，tokenId为2，数量为10
+mint(account.address, 2, 10, 0x0): mint NFT for user, tokenId 2, quantity 10
 
 safeBatchTransferFrom(fromAddress, toAddress, [tokenId1, tokenId2], [tokenAmount1, tokenAmount2], 0x0)
 
-setTokenURI(tokenId, 'https://ipfs.io/ipfs/bafkreiewkeucchypjyuru67goraapvs2tuyntcs7nbktklicz2a223oea4'): 平台设置token uri
+setTokenURI(tokenId, 'https://ipfs.io/ipfs/bafkreiewkeucchypjyuru67goraapvs2tuyntcs7nbktklicz2a223oea4'): set token uri
